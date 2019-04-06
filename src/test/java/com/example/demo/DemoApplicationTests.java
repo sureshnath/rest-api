@@ -15,4 +15,9 @@ public class DemoApplicationTests {
 
     }
 
+    @Test
+    public void implementServiceLayer_test() throws Exception {
+        throw new Exception("Code not Developed");
+    }
+
 }
