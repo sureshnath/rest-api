@@ -14,10 +14,4 @@ public class DemoApplicationTests {
         DemoApplication.main(new String[]{});
 
     }
-
-    @Test
-    public void implementServiceLayer_test() throws Exception {
-        throw new Exception("Code not Developed");
-    }
-
 }
