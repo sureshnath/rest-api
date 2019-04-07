@@ -1,9 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.repository.APIRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class APIService {
+public class APIService implements APIRepository {
+
+    @Autowired
+    private APIRepository apiRepository;
+
     /**
      *
      * @param language
@@ -29,4 +35,14 @@ public class APIService {
         }
         return ret;
     }
+
+
+    /**
+     *
+     * @return String from Repository method
+     */
+    public String repositoryMethod(String string){
+        return apiRepository.greetingMethod(string);
+    }
+
 }

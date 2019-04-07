@@ -13,16 +13,23 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(classes = APIService.class)
 public class APIServiceTest {
 
+    static final String VANAKAM = "Vanakam";
+
     @Autowired
     APIService apiService;
 
     @Test
     public void greetingServiceUnitTest() {
-        assertThat("Vanakam",is(apiService.greetingService("tamil")));
+        assertThat(VANAKAM,is(apiService.greetingService("tamil")));
         assertThat("Hello",is(apiService.greetingService("english")));
         assertThat("Bonjour",is(apiService.greetingService("french")));
         assertThat("Swastika",is(apiService.greetingService("thai")));
-        assertThat("Vanakam",is(apiService.greetingService("default")));
-        assertThat("Vanakam",is(apiService.greetingService("unknown")));
+        assertThat(VANAKAM,is(apiService.greetingService("default")));
+        assertThat(VANAKAM,is(apiService.greetingService("unknown")));
+    }
+
+    @Test
+    public void repositoryMethodUnitTest(){
+        assertThat("Hello Java",is(apiService.repositoryMethod("Java")));
     }
 }
