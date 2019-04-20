@@ -22,4 +22,10 @@ public class APIController {
     public String greeting(){
        return apiService.greetingService("Ravi");
     }
+
+    @GetMapping("/jenkinsTest")
+    public String JenkingsTest(){
+        return "Hello from Jenkins";
+    }
+    
 }
