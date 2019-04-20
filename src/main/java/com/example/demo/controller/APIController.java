@@ -25,6 +25,7 @@ public class APIController {
 
     @GetMapping("/jenkinsTest")
     public String JenkingsTest(){
-        return apiService.greetingService("Hello from Jenkins");
+        return "Hello from Jenkins";
     }
+    
 }
