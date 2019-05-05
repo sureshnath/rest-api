@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.repository.APIRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 @Service
-public class APIService implements APIRepository {
+public class APIService  {
 
     @Autowired
     private APIRepository apiRepository;
