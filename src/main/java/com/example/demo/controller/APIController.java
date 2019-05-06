@@ -27,5 +27,10 @@ public class APIController {
     public String JenkingsTest(){
         return "Hello from Jenkins";
     }
+
+    @GetMapping("/helloRepo")
+    public String helloFromRepo(){
+     return apiService.repositoryMethod("Ravi");
+    }
     
 }
