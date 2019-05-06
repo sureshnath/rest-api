@@ -1,66 +1,48 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.APIService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Slf4j
+@SpringBootTest
+@AutoConfigureMockMvc
 public class APIControllerIT {
 
-    TestRestTemplate testRestTemplate = new TestRestTemplate();
-    HttpHeaders httpHeaders = new HttpHeaders();
-
-    @LocalServerPort
-    private int port;
-
     @Autowired
-    APIService apiService;
+    private MockMvc mockMvc;
 
     @Test
-    public void sayHello() {
-
-        HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
-
-        ResponseEntity<String> responseEntity = testRestTemplate.exchange(createURLWithPort("/hello"), HttpMethod.GET,entity,String.class);
+    public void sayHello() throws Exception {
 
         String expected = "Hello!!!";
 
-//      Weak Testing
-        assertEquals(expected,responseEntity.getBody());
-//      Normal Testing
-        assertThat(expected,is(responseEntity.getBody()));
-
+        mockMvc.perform(get("/hello")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(expected)));
     }
-
 
     @Test
-    public void repositoryMethodIT(){
-        assertThat("Hello Ravi",is(apiService.repositoryMethod("Ravi")));
+    public void greeting() throws Exception {
+
+        String expected = "Vanakam";
+
+        mockMvc.perform(get("/greetings")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(expected)));
     }
-
-
-
-
-    private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + uri;
-    }
-
 
 }
